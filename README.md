@@ -14,6 +14,18 @@ ReactiveLibrary is a powerful and flexible reactive programming library designed
 - **Error Handling**: Comprehensive error handling and recovery mechanisms
 - **Lua Compatible**: Built specifically for Lua with no external dependencies
 
+## How to use it
+Copy the `rx.lua` file into your project and require it:
+
+```lua
+local rx = require 'rx'
+```
+Then require it:
+
+```lua
+local rx = require 'rx'
+```
+
 ## Installation
 
 Clone the repository: 
