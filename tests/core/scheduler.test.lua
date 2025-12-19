@@ -1,0 +1,42 @@
+describe('Scheduler', function()
+    it('should create a scheduler', function()
+        local scheduler = Rx.Scheduler.new()
+        expect(scheduler).to.exist()
+        expect(scheduler.time).to.equal(0)
+    end)
+    
+    it('should schedule a task', function()
+        local scheduler = Rx.Scheduler.new()
+        local called = false
+        scheduler:schedule(function() called = true end, 10)
+        expect(called).to.equal(false)
+        scheduler:advance(10)
+        expect(called).to.equal(true)
+    end)
+    
+    it('should schedule periodic task', function()
+        local scheduler = Rx.Scheduler.new()
+        local count = 0
+        local id = scheduler:schedule_periodic(function() count = count + 1 end, 10)
+        scheduler:advance(10)
+        expect(count).to.equal(1)
+        scheduler:advance(10)
+        expect(count).to.equal(2)
+        scheduler:cancel(id)
+    end)
+    
+    it('should cancel scheduled tasks', function()
+        local scheduler = Rx.Scheduler.new()
+        local called = false
+        local id = scheduler:schedule(function() called = true end, 10)
+        scheduler:cancel(id)
+        scheduler:advance(10)
+        expect(called).to.equal(false)
+    end)
+    
+    it('should handle errors in scheduled tasks', function()
+        local scheduler = Rx.Scheduler.new()
+        scheduler:schedule(function() error("task error") end, 10)
+        expect(function() scheduler:advance(10) end).to_not.fail()
+    end)
+end)

@@ -1,0 +1,10 @@
+describe('buffer_count', function()
+    it('should buffer by count', function()
+        local buffers = {}
+        Rx.Observable.of(1, 2, 3, 4, 5)
+            :buffer_count(2)
+            :subscribe(function(buf) table.insert(buffers, buf) end)
+        expect(#buffers).to.equal(3)
+        expect(buffers[1]).to.equal({1, 2})
+    end)
+end)
