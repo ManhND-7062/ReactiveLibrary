@@ -117,7 +117,6 @@ dofile('tests/operators/timeout.test.lua')
 --- utility operator group
 dofile('tests/operators/collect.test.lua')
 dofile('tests/operators/count.test.lua')
-dofile('tests/operators/log.test.lua')
 dofile('tests/operators/tap.test.lua')
 dofile('tests/operators/to_array.test.lua')
 

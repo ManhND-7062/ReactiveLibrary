@@ -22,20 +22,20 @@ end
 -- @arg {function} on_complete  - Function to handle completion (if observer_or_fn is a function).
 -- @returns {Subscription}
 function Subject:subscribe(observer_or_fn, on_error, on_complete)
-    if self.closed then
-        return Subscription.new()
-    end
-    
     local observer
     if type(observer_or_fn) == "table" then
         observer = observer_or_fn
     else
         observer = Observer.new(observer_or_fn, on_error, on_complete)
     end
-    
+
     -- If already completed or errored, notify immediately
     if self.has_error then
         observer:error(self.error_value)
+        return Subscription.new()
+    end
+
+    if self.closed then
         return Subscription.new()
     end
     
